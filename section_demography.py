@@ -81,14 +81,24 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str, height=400):
         st.info("Տվյալներ չկան")
         return
 
+    base = alt.Chart(tab).encode(
+        y=alt.Y("answer:N", sort="-x", title=None, axis=alt.Axis(labelLimit=300)),
+        x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
+        tooltip=["answer", "percent", "count"]
+    )
+
+    bars = base.mark_bar()
+
+    text = base.mark_text(
+        align='left',
+        baseline='middle',
+        dx=3
+    ).encode(
+        text=alt.Text('percent:Q', format='.1f')
+    )
+
     chart = (
-        alt.Chart(tab)
-        .mark_bar()
-        .encode(
-            y=alt.Y("answer:N", sort="-x", title=None, axis=alt.Axis(labelLimit=300)),
-            x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
-            tooltip=["answer", "percent", "count"]
-        )
+        (bars + text)
         .properties(height=height, title=title)
         .configure_mark(color=PINK)
     )
@@ -99,14 +109,24 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str, height=350):
         st.info("Տվյալներ չկան")
         return
 
+    base = alt.Chart(tab).encode(
+        x=alt.X("answer:N", sort="-y", title=None, axis=alt.Axis(labelAngle=-45, labelLimit=200)),
+        y=alt.Y("percent:Q", title="%", axis=alt.Axis(format="d")),
+        tooltip=["answer", "percent", "count"]
+    )
+
+    bars = base.mark_bar()
+
+    text = base.mark_text(
+        align='center',
+        baseline='bottom',
+        dy=-5
+    ).encode(
+        text=alt.Text('percent:Q', format='.1f')
+    )
+
     chart = (
-        alt.Chart(tab)
-        .mark_bar()
-        .encode(
-            x=alt.X("answer:N", sort="-y", title=None, axis=alt.Axis(labelAngle=-45, labelLimit=200)),
-            y=alt.Y("percent:Q", title="%", axis=alt.Axis(format="d")),
-            tooltip=["answer", "percent", "count"]
-        )
+        (bars + text)
         .properties(height=height, title=title)
         .configure_mark(color=PINK)
     )

@@ -219,14 +219,24 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str):
         st.info("Տվյալներ չկան այս հարցի համար ֆիլտրերի սահմանման դեպքում.")
         return
 
+    base = alt.Chart(tab).encode(
+        x=alt.X("answer:N", sort="-y", title=None),
+        y=alt.Y("percent:Q", title="%", axis=alt.Axis(format="d")),
+        tooltip=["answer", "percent"]
+    )
+
+    bars = base.mark_bar()
+
+    text = base.mark_text(
+        align='center',
+        baseline='bottom',
+        dy=-5
+    ).encode(
+        text=alt.Text('percent:Q', format='.1f')
+    )
+
     chart = (
-        alt.Chart(tab)
-        .mark_bar()
-        .encode(
-            x=alt.X("answer:N", sort="-y", title=None),
-            y=alt.Y("percent:Q", title="%", axis=alt.Axis(format="d")),
-            tooltip=["answer", "percent"]
-        )
+        (bars + text)
         .properties(height=350, title=title)
         .configure_mark(color=PINK)
     )
@@ -239,14 +249,24 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str):
         st.info("Տվյալներ չկան այս հարցի համար ֆիլտրերի սահմանման դեպքում.")
         return
 
+    base = alt.Chart(tab).encode(
+        y=alt.Y("answer:N", sort="-x", title=None),
+        x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
+        tooltip=["answer", "percent"]
+    )
+
+    bars = base.mark_bar()
+
+    text = base.mark_text(
+        align='left',
+        baseline='middle',
+        dx=3
+    ).encode(
+        text=alt.Text('percent:Q', format='.1f')
+    )
+
     chart = (
-        alt.Chart(tab)
-        .mark_bar()
-        .encode(
-            y=alt.Y("answer:N", sort="-x", title=None),
-            x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
-            tooltip=["answer", "percent"]
-        )
+        (bars + text)
         .properties(height=400, title=title)
         .configure_mark(color=PINK)
     )

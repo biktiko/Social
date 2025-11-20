@@ -260,17 +260,27 @@ def grouped_bar_chart(tab: pd.DataFrame, title: str):
             st.markdown(f"**{label}**")
             chart_data = tab_sorted[['channel', metric]].rename(columns={metric: 'value'})
             
+            base = alt.Chart(chart_data).encode(
+                x=alt.X('value:Q', title='%', scale=alt.Scale(domain=[0, tab['Total'].max()])),
+                y=alt.Y('channel:N', sort='-x', title=None, axis=alt.Axis(labelLimit=150)),
+                tooltip=[
+                    alt.Tooltip('channel:N', title='Ալիք'),
+                    alt.Tooltip('value:Q', title='%', format='.1f')
+                ]
+            )
+
+            bars = base.mark_bar(color=colors[metric])
+
+            text = base.mark_text(
+                align='left',
+                baseline='middle',
+                dx=3
+            ).encode(
+                text=alt.Text('value:Q', format='.1f')
+            )
+
             chart = (
-                alt.Chart(chart_data)
-                .mark_bar(color=colors[metric])
-                .encode(
-                    x=alt.X('value:Q', title='%', scale=alt.Scale(domain=[0, tab['Total'].max()])),
-                    y=alt.Y('channel:N', sort='-x', title=None, axis=alt.Axis(labelLimit=150)),
-                    tooltip=[
-                        alt.Tooltip('channel:N', title='Ալիք'),
-                        alt.Tooltip('value:Q', title='%', format='.1f')
-                    ]
-                )
+                (bars + text)
                 .properties(height=500)
             )
             st.altair_chart(chart, use_container_width=True)
@@ -304,14 +314,24 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str):
         st.info("Տվյալներ չկան այս հարցի համար ֆիլտրերի սահմանման դեպքում.")
         return
 
+    base = alt.Chart(tab).encode(
+        y=alt.Y("answer:N", sort="-x", title=None),
+        x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
+        tooltip=["answer", "percent"]
+    )
+
+    bars = base.mark_bar()
+
+    text = base.mark_text(
+        align='left',
+        baseline='middle',
+        dx=3
+    ).encode(
+        text=alt.Text('percent:Q', format='.1f')
+    )
+
     chart = (
-        alt.Chart(tab)
-        .mark_bar()
-        .encode(
-            y=alt.Y("answer:N", sort="-x", title=None),
-            x=alt.X("percent:Q", title="%", axis=alt.Axis(format="d")),
-            tooltip=["answer", "percent"]
-        )
+        (bars + text)
         .properties(height=max(300, len(tab) * 25), title=title)
         .configure_mark(color=PINK)
     )
