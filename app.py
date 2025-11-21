@@ -7,6 +7,7 @@ from section2 import page_section2
 from section3 import page_section3
 from section4 import page_section4
 from section_demography import page_demography
+from sidebar_help import render_sidebar_help
 
 # ----------------------
 # Constants and styling
@@ -238,7 +239,7 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str):
     chart = (
         (bars + text)
         .properties(height=350, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -268,7 +269,7 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str):
     chart = (
         (bars + text)
         .properties(height=400, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -332,6 +333,8 @@ page = st.sidebar.radio(
     ["Դեմոգրաֆիա", "Բաժին 2 - Ռադիո և TV ունկնդրման/ դիտման վարքագիծ", "Բաժին 3 - Ռադիո և TV ալիքների վարկանիշեր", "Բաժին 4 - Այլ աղբյուրներ"],
     index=0
 )
+
+render_sidebar_help()
 
 if page == "Դեմոգրաֆիա":
     page_demography(df_raw)

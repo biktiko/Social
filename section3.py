@@ -1,5 +1,5 @@
 """
-Section 3: Radio and TV Channel Ratings
+# Section 3: Radio and TV Channel Ratings
 """
 import streamlit as st
 import pandas as pd
@@ -241,9 +241,9 @@ def grouped_bar_chart(tab: pd.DataFrame, title: str):
     col1, col2, col3 = st.columns(3)
     
     colors = {
-        'TOM': GRAY,
+        'TOM': PINK,
         'Other': YELLOW,
-        'Prompted': PINK
+        'Prompted': GRAY
     }
     
     labels = {
@@ -333,7 +333,7 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str):
     chart = (
         (bars + text)
         .properties(height=max(300, len(tab) * 25), title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -351,7 +351,7 @@ def donut_chart(tab: pd.DataFrame, title: str):
             theta=alt.Theta("percent:Q"),
             color=alt.Color("answer:N",
                             scale=alt.Scale(
-                                range=[PINK, YELLOW, GRAY, "#4fb4d8", "#a0c4ff"]
+                                range=[GRAY, YELLOW, PINK, "#d3d3d3", "#a9a9a9"]
                             ),
                             legend=alt.Legend(title=None)),
             tooltip=["answer", "percent"]

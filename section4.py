@@ -175,8 +175,6 @@ def process_open_ended_comments(df, prefix, max_slots=10):
 PINK = "#ff3366"
 YELLOW = "#ffcc66"
 GRAY = "#7a8c8e"
-BLUE = "#4fb4d8"
-LIGHT_BLUE = "#a0c4ff"
 
 def bar_chart_horizontal(tab: pd.DataFrame, title: str, height=400):
     if tab.empty:
@@ -202,7 +200,7 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str, height=400):
     chart = (
         (bars + text)
         .properties(height=height, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -230,7 +228,7 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str, height=350):
     chart = (
         (bars + text)
         .properties(height=height, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -245,13 +243,39 @@ def donut_chart(tab: pd.DataFrame, title: str):
         .encode(
             theta=alt.Theta("percent:Q"),
             color=alt.Color("answer:N",
-                            scale=alt.Scale(range=[PINK, YELLOW, GRAY, BLUE, LIGHT_BLUE]),
+                            scale=alt.Scale(range=[GRAY, YELLOW, PINK, "#d3d3d3", "#a9a9a9"]),
                             legend=alt.Legend(title=None, orient="bottom", columns=2)),
             tooltip=["answer", "percent", "count"]
         )
         .properties(height=400, title=title)
     )
     st.altair_chart(chart, use_container_width=True)
+
+# ... (rest of the file)
+
+# In section 4, we have inline charts for YouTube, Bloggers, TikTok, Messengers.
+# I need to update them too.
+
+# YouTube section
+# ...
+# chart_seg_yt ... .configure_mark(color=GRAY)
+# final_chart ... .configure_mark(color=GRAY)
+
+# Bloggers section
+# ...
+# chart_seg ... .configure_mark(color=YELLOW) (Keep Yellow)
+
+# TikTok section
+# ...
+# chart_seg_tt ... .configure_mark(color=PINK) (Keep Pink or change to Gray? User said "too much pink". But TikTok is distinct. Let's keep Pink for TikTok section specifically, or change to Gray. Let's change to GRAY to be safe.)
+# Actually, let's use GRAY for TikTok too to avoid "too much pink".
+
+# Messengers section
+# chart_grouped ... color=alt.Color("answer:N", scale=alt.Scale(range=[GRAY, YELLOW, PINK, ...]))
+
+# I will use multi_replace for inline charts later.
+# This replacement is for the top part definitions.
+
 
 # ----------------------
 # Page Logic
@@ -360,7 +384,7 @@ def page_section4(df: pd.DataFrame):
         chart_seg_yt = (
             (bars + text)
             .properties(height=300)
-            .configure_mark(color=BLUE)
+            .configure_mark(color=GRAY)
         )
         st.altair_chart(chart_seg_yt, use_container_width=True)
 
@@ -531,7 +555,7 @@ def page_section4(df: pd.DataFrame):
         chart_seg_tt = (
             (bars + text)
             .properties(height=300)
-            .configure_mark(color=PINK)
+            .configure_mark(color=GRAY)
         )
         st.altair_chart(chart_seg_tt, use_container_width=True)
 
@@ -552,23 +576,6 @@ def page_section4(df: pd.DataFrame):
         text = chart_tt.mark_text(
             align='left',
             baseline='middle',
-            dx=3
-        ).encode(
-            text=alt.Text('Count:Q')
-        )
-        
-        final_chart_tt = (
-            (chart_tt + text)
-            .properties(title="Top 20")
-            .configure_mark(color=PINK)
-        )
-        st.altair_chart(final_chart_tt, use_container_width=True)
-        
-        with st.expander("Տեսնել բոլոր նշված տիկտոկերներին (Ամբողջական ցանկ)"):
-            st.dataframe(mentions_tt, use_container_width=True)
-            csv_tt = mentions_tt.to_csv(index=False).encode("utf-8-sig")
-            st.download_button(
-                "Ներբեռնել ամբողջական ցանկը CSV",
                 data=csv_tt,
                 file_name="tiktokers_all_mentions.csv",
                 mime="text/csv"

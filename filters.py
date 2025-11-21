@@ -31,7 +31,7 @@ def render_filters(df: pd.DataFrame, key_prefix: str = "") -> pd.DataFrame:
             background-color: {WHITE};
             padding: 1rem;
             border-radius: 8px;
-            border: 1px solid {GRAY};
+            border: 1px solid #7a8c8e;
         }}
         </style>
         """, unsafe_allow_html=True)
@@ -202,8 +202,9 @@ def render_filters(df: pd.DataFrame, key_prefix: str = "") -> pd.DataFrame:
         # Show filter summary
         total_records = len(df)
         filtered_records = len(filt_df)
+        GRAY = "#7a8c8e"
         st.markdown(f"""
-        <div style='margin-top: 1rem; padding: 0.5rem; background-color: {PINK}20; border-radius: 4px; text-align: center;'>
+        <div style='margin-top: 1rem; padding: 0.5rem; background-color: {GRAY}20; border-radius: 4px; text-align: center;'>
             <b>Մարդկանց քանակը:</b> {filtered_records:,} / {total_records:,}
         </div>
         """, unsafe_allow_html=True)

@@ -76,7 +76,7 @@ def freq_multi(df: pd.DataFrame, cols: list[str], labels: dict[str, str]) -> pd.
 def bar_chart_vertical(tab: pd.DataFrame, title: str):
     """Vertical bar chart."""
     import altair as alt
-    PINK = "#ff3366"
+    GRAY = "#7a8c8e"
     
     if tab.empty:
         st.info("Տվյալներ չկան այս հարցի համար ֆիլտրերի սահմանման դեպքում.")
@@ -101,7 +101,7 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str):
     chart = (
         (bars + text)
         .properties(height=350, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -109,7 +109,7 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str):
 def bar_chart_horizontal(tab: pd.DataFrame, title: str):
     """Horizontal bar chart."""
     import altair as alt
-    PINK = "#ff3366"
+    GRAY = "#7a8c8e"
     
     if tab.empty:
         st.info("Տվյալներ չկան այս հարցի համար ֆիլտրերի սահմանման դեպքում.")
@@ -134,7 +134,7 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str):
     chart = (
         (bars + text)
         .properties(height=400, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 

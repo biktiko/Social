@@ -73,8 +73,6 @@ def freq_single(df: pd.DataFrame, col: str, mapping: dict | None = None,
 PINK = "#ff3366"
 YELLOW = "#ffcc66"
 GRAY = "#7a8c8e"
-BLUE = "#4fb4d8"
-LIGHT_BLUE = "#a0c4ff"
 
 def bar_chart_horizontal(tab: pd.DataFrame, title: str, height=400):
     if tab.empty:
@@ -100,7 +98,7 @@ def bar_chart_horizontal(tab: pd.DataFrame, title: str, height=400):
     chart = (
         (bars + text)
         .properties(height=height, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -128,7 +126,7 @@ def bar_chart_vertical(tab: pd.DataFrame, title: str, height=350):
     chart = (
         (bars + text)
         .properties(height=height, title=title)
-        .configure_mark(color=PINK)
+        .configure_mark(color=GRAY)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -143,7 +141,7 @@ def donut_chart(tab: pd.DataFrame, title: str):
         .encode(
             theta=alt.Theta("percent:Q"),
             color=alt.Color("answer:N",
-                            scale=alt.Scale(range=[PINK, YELLOW, GRAY, BLUE, LIGHT_BLUE]),
+                            scale=alt.Scale(range=[GRAY, YELLOW, PINK, "#d3d3d3", "#a9a9a9"]),
                             legend=alt.Legend(title=None, orient="bottom", columns=2)),
             tooltip=["answer", "percent", "count"]
         )
