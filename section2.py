@@ -160,7 +160,8 @@ def page_section2(df: pd.DataFrame):
 
     show_note()
 
-    st.subheader("Օգտագործման հաճախականություն \n \n")
+    st.subheader("Օգտագործման հաճախականություն")
+    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
 
     # st.markdown("""
     
@@ -181,9 +182,14 @@ def page_section2(df: pd.DataFrame):
         if col_name not in df.columns:
             continue
         with col:
+            st.write("") # Add spacing
+            st.write("") 
             # Don't exclude 98 and 999, only exclude 0 if present
             tab = freq_single(df, col_name, mapping=M0_FREQUENCY_MAP, exclude_values={0})
-            bar_chart_vertical(tab, title)
+            
+            # Render title outside of the chart to avoid cutting off
+            st.markdown(f"<h5 style='text-align: center;'>{title}</h5>", unsafe_allow_html=True)
+            bar_chart_vertical(tab, "")
             show_table_expander(tab, f"{col_name.lower()}_freq.csv")
 
     st.markdown("---")
