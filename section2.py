@@ -160,7 +160,7 @@ def page_section2(df: pd.DataFrame):
 
     show_note()
 
-    st.subheader("Օգտագործման հաճախականություն")
+    st.subheader("Օգտագործման հաճախականություն \n \n")
 
     # st.markdown("""
     
