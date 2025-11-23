@@ -185,7 +185,7 @@ def page_demography(df: pd.DataFrame):
     with col3:
         if "S3" in df.columns:
             tab_city = freq_single(df, "S3", mapping=None, exclude_values={0, 999})
-            st.subheader("Բնակավայր (S3)")
+            st.subheader("Բնակավայր")
             bar_chart_horizontal(tab_city, "Բնակավայրերի բաշխվածություն")
             show_table_expander(tab_city, "demography_city.csv")
 
@@ -193,7 +193,7 @@ def page_demography(df: pd.DataFrame):
         if "S5" in df.columns:
             # Include null values as separate category
             tab_s5 = freq_single(df, "S5", mapping=None, exclude_values={0, 999}, include_null=True)
-            st.subheader("Բնակավայրի տեսակ (S5)")
+            st.subheader("Բնակավայրի տեսակ")
             donut_chart(tab_s5, "Բնակավայրի տեսակի բաշխվածություն")
             show_table_expander(tab_s5, "demography_s5.csv")
 
@@ -212,7 +212,7 @@ def page_demography(df: pd.DataFrame):
     st.header("Սոցիալ-դեմոգրաֆիական այլ տվյալներ")
     
     # D1 - Marital Status
-    st.subheader("D1. Ամուսնական կարգավիճակ")
+    st.subheader("Ամուսնական կարգավիճակ")
     if "D1" in df.columns:
         tab_d1 = freq_single(df, "D1", mapping=D1_MARITAL_STATUS_MAP, exclude_values={99})
         donut_chart(tab_d1, "Ամուսնական կարգավիճակ")
@@ -221,14 +221,14 @@ def page_demography(df: pd.DataFrame):
     st.markdown("---")
     
     # D4 - Employment Status
-    st.subheader("D4. Զբաղվածության կարգավիճակ")
+    st.subheader("Զբաղվածության կարգավիճակ")
     if "D4" in df.columns:
         tab_d4 = freq_single(df, "D4", mapping=D4_EMPLOYMENT_STATUS_MAP, exclude_values={99})
         bar_chart_horizontal(tab_d4, "Զբաղվածություն", height=500)
         show_table_expander(tab_d4, "demography_employment.csv")
         
     # D4.1 - Industry (if employed)
-    st.subheader("D4.1. Գործունեության ոլորտ")
+    st.subheader("Գործունեության ոլորտ")
     if "D41" in df.columns:
         tab_d41 = freq_single(df, "D41", mapping=D4_1_INDUSTRY_MAP, exclude_values={99})
         bar_chart_horizontal(tab_d41, "Գործունեության ոլորտ", height=600)
@@ -237,7 +237,7 @@ def page_demography(df: pd.DataFrame):
     st.markdown("---")
     
     # D6 - Income
-    st.subheader("D6. Անձնական եկամուտ")
+    st.subheader("Անձնական եկամուտ")
     if "D6" in df.columns:
         tab_d6 = freq_single(df, "D6", mapping=D6_INCOME_MAP, exclude_values={99})
         bar_chart_vertical(tab_d6, "Եկամուտ")

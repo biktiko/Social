@@ -329,7 +329,7 @@ def page_section4(df: pd.DataFrame):
     
     with col1:
         # O1: YouTube regular usage (Single)
-        st.subheader("O1. Յութուբյան ալիքների կանոնավոր դիտում")
+        st.subheader("Յութուբյան ալիքների կանոնավոր դիտում")
         if "O1" in df.columns:
             tab_o1 = freq_single(df, "O1", mapping=O1_YOUTUBE_REGULAR_MAP)
             donut_chart(tab_o1, "Յութուբի օգտագործում")
@@ -340,7 +340,7 @@ def page_section4(df: pd.DataFrame):
     with col2:
         # O2: YouTube content types (Multiple)
         # Columns: O2_1 ... O2_7, O2_999, O2_other
-        st.subheader("O2. Յութուբում դիտվող կոնտենտի տեսակներ")
+        st.subheader("Յութուբում դիտվող կոնտենտի տեսակներ")
         o2_cols = []
         o2_labels = {}
         for code in range(1, 8):
@@ -358,7 +358,7 @@ def page_section4(df: pd.DataFrame):
         show_table_expander(tab_o2, "youtube_content.csv")
         
     # O2.1: YouTube channels (Open ended)
-    st.subheader("O2.1. Նախընտրելի Յութուբյան ալիքներ (Top 20)")
+    st.subheader("Նախընտրելի Յութուբյան ալիքներ")
     
     seg_yt, mentions_yt = process_open_ended_comments(df, "O21", max_slots=10)
     
@@ -412,7 +412,7 @@ def page_section4(df: pd.DataFrame):
         final_chart = (
             (chart + text)
             .properties(title="Top 20 նշված ալիքներ")
-            .configure_mark(color=BLUE)
+            .configure_mark(color=GRAY)
         )
         st.altair_chart(final_chart, use_container_width=True)
         show_table_expander(mentions_yt, "youtube_channels_mentions.csv")
@@ -438,12 +438,12 @@ def page_section4(df: pd.DataFrame):
         o3_labels["O3_other"] = O3_SOCIAL_NETWORKS_MAP.get(98)
         
     tab_o3 = freq_multi(df, o3_cols, o3_labels)
-    st.subheader("O3. Սոցիալական ցանցերից օգտվելը")
+    st.subheader("Սոցիալական ցանցերից օգտվելը")
     bar_chart_vertical(tab_o3, "Սոցցանցերի օգտագործում")
     show_table_expander(tab_o3, "social_networks.csv")
     
     # O3.1: Behavior (Single)
-    st.subheader("O3.1. Սոցիալական ցանցերից օգտվելու վարքագիծ")
+    st.subheader("Սոցիալական ցանցերից օգտվելու վարքագիծ")
     if "O31" in df.columns:
         tab_o31 = freq_single(df, "O31", mapping=O3_1_SOCIAL_BEHAVIOR_MAP, exclude_values={0, 999})
         donut_chart(tab_o31, "Վարքագիծ")
@@ -452,7 +452,7 @@ def page_section4(df: pd.DataFrame):
 
 
     # O3.2: Bloggers (Open ended)
-    st.subheader("O3.2. Նախընտրելի բլոգերներ (FB/Instagram)")
+    st.subheader("Նախընտրելի բլոգերներ (FB/Instagram)")
     
     # Analyze data
     seg_blog, mentions_blog = process_open_ended_comments(df, "O32", max_slots=10)
@@ -529,7 +529,7 @@ def page_section4(df: pd.DataFrame):
     st.markdown("---")
 
     # O3.3: TikTok (Open ended)
-    st.subheader("O3.3. Նախընտրելի Տիկտոկերներ")
+    st.subheader("Նախընտրելի Տիկտոկերներ")
     
     seg_tt, mentions_tt = process_open_ended_comments(df, "O33", max_slots=10)
     
@@ -576,6 +576,23 @@ def page_section4(df: pd.DataFrame):
         text = chart_tt.mark_text(
             align='left',
             baseline='middle',
+            dx=3
+        ).encode(
+            text=alt.Text('Count:Q')
+        )
+        
+        final_chart_tt = (
+            (chart_tt + text)
+            .properties(title="Top 20")
+            .configure_mark(color=GRAY)
+        )
+        st.altair_chart(final_chart_tt, use_container_width=True)
+        
+        with st.expander("Տեսնել բոլոր նշված տիկտոկերներին (Ամբողջական ցանկ)"):
+            st.dataframe(mentions_tt, use_container_width=True)
+            csv_tt = mentions_tt.to_csv(index=False).encode("utf-8-sig")
+            st.download_button(
+                "Ներբեռնել ամբողջական ցանկը CSV",
                 data=csv_tt,
                 file_name="tiktokers_all_mentions.csv",
                 mime="text/csv"
@@ -602,7 +619,7 @@ def page_section4(df: pd.DataFrame):
         o4_labels["O4_other"] = O4_MESSENGERS_MAP.get(98)
         
     tab_o4 = freq_multi(df, o4_cols, o4_labels)
-    st.subheader("O4. Հաղորդակցման հավելվածներ")
+    st.subheader("Հաղորդակցման հավելվածներ")
     bar_chart_vertical(tab_o4, "Մեսինջերների օգտագործում")
     show_table_expander(tab_o4, "messengers.csv")
     
@@ -612,7 +629,7 @@ def page_section4(df: pd.DataFrame):
     # WhatsApp (3) -> O413_1..4
     # FB Messenger (4) -> O414_1..4
     
-    st.subheader("O4.1. Մեսինջերների օգտագործման վարքագիծ")
+    st.subheader("Մեսինջերների օգտագործման վարքագիծ")
     
     messengers_config = [
         ("Telegram", "O411"),

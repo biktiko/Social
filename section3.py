@@ -388,7 +388,7 @@ def page_section3(df: pd.DataFrame):
     # ==================
     st.header("📺 Հեռուստաալիքներ")
     
-    st.subheader("R1 - Հայկական հեռուստաալիքներ (ամբողջական վերլուծություն)")
+    st.subheader("Հայկական հեռուստաալիքներ (ամբողջական վերլուծություն)")
     
     # Combined TOM + Other + Prompted visualization
     tab_tv_combined = combine_tom_other_promp(
@@ -413,13 +413,13 @@ def page_section3(df: pd.DataFrame):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("R2 - Հեռուստատեսության տեսակ")
+        st.subheader("Հեռուստատեսության տեսակ")
         tab_r2 = freq_single(df, "R2", mapping=TV_SUBSCRIPTION_MAP, exclude_values={0, 99})
         donut_chart(tab_r2, "Հեռուստատեսության տեսակի բաշխվածություն")
         show_table_expander(tab_r2, "r2_tv_subscription.csv")
     
     with col2:
-        st.subheader("R2.1 - Կաբելային TV մատակարար")
+        st.subheader("Կաբելային TV մատակարար")
         # Only show for those who selected cable (R2 contains text, not numbers)
         if "R2" in df.columns:
             # Filter for cable TV users (text contains "կաբելային")
@@ -438,7 +438,7 @@ def page_section3(df: pd.DataFrame):
     # ==================
     st.header("📻 Ռադիոալիքներ")
     
-    st.subheader("R3 - Հայկական ռադիոալիքներ (ամբողջական վերլուծություն)")
+    st.subheader("Հայկական ռադիոալիքներ (ամբողջական վերլուծություն)")
     
     # Combined TOM + Other + Prompted visualization
     tab_radio_combined = combine_tom_other_promp(
@@ -460,7 +460,7 @@ def page_section3(df: pd.DataFrame):
     # ==================
     st.header("🎬 Հեռուստահաղորդումների տեսակներ")
     
-    st.subheader("R4 - Նախընտրելի հաղորդումների տեսակներ")
+    st.subheader("Նախընտրելի հաղորդումների տեսակներ")
     
     # R4 uses YES/NO format in columns R4_1 through R4_7
     r4_cols = [f"R4_{i}" for i in range(1, 8)]
@@ -565,7 +565,7 @@ def page_section3(df: pd.DataFrame):
     # ==================
     st.header("🎙️ Ռադիոհաղորդումների տեսակներ")
     
-    st.subheader("R6 - Լսվող ռադիոհաղորդումների տեսակներ")
+    st.subheader("Լսվող ռադիոհաղորդումների տեսակներ")
     
     # R6_1 through R6_7
     counts_r6 = {}
@@ -595,7 +595,7 @@ def page_section3(df: pd.DataFrame):
     # ==================
     st.header("📝 Ռադիոհաղորդումների անուններ")
     
-    st.subheader("R7 - Հիշատակված ռադիոհաղորդումներ")
+    st.subheader("Հիշատակված ռադիոհաղորդումներ")
     
     # R7 is free text, let's show unique values
     if "R7" in df.columns:

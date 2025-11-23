@@ -160,8 +160,12 @@ def page_section2(df: pd.DataFrame):
 
     show_note()
 
-    st.subheader("M0 - Օգտագործման հաճախականություն")
+    st.subheader("Օգտագործման հաճախականություն")
 
+    # st.markdown("""
+    
+    # """)
+    
     m0_cols = {
         "M0_M0TV": "Հեռուստացույց դիտելու հաճախականություն",
         "M0_M0_radio": "Ռադիո ունկնդրման հաճախականություն",
@@ -185,7 +189,7 @@ def page_section2(df: pd.DataFrame):
     st.markdown("---")
 
     # H4 - places for watching TV (multiple)
-    st.subheader("H4 - Որտե՞ղ եք սովորաբար հեռուստացույց դիտում")
+    st.subheader("Որտե՞ղ եք սովորաբար հեռուստացույց դիտում")
 
     h4_cols = ["H4_1", "H4_2", "H4_other"]
     h4_labels = {
@@ -200,7 +204,7 @@ def page_section2(df: pd.DataFrame):
     st.markdown("---")
 
     # H4.1 - places for listening radio (multiple)
-    st.subheader("H4.1 - Որտե՞ղ եք սովորաբար ռադիո լսում")
+    st.subheader("Որտե՞ղ եք սովորաբար ռադիո լսում")
 
     h41_cols = ["H41_1", "H41_2", "H41_3", "H41_4", "H41_other"]
     h41_labels = {
@@ -217,7 +221,7 @@ def page_section2(df: pd.DataFrame):
     st.markdown("---")
 
     # H2.1 - way of watching/listening (multiple, max 3)
-    st.subheader("H2.1 - Ինչ տարբերակով եք սովորաբար դիտում/լսում")
+    st.subheader("Ինչ տարբերակով եք սովորաբար դիտում/լսում")
 
     h211_cols = ["H211_1", "H211_2", "H211_3", "H211_other"]
     h211_labels = {
@@ -244,7 +248,7 @@ def page_section2(df: pd.DataFrame):
     st.markdown("---")
 
     # H3 - time of day (multiple, 3 main slots)
-    st.subheader("H3 - Ո՞ր ժամերին եք ամենից հաճախ դիտում/լսում")
+    st.subheader("Ո՞ր ժամերին եք ամենից հաճախ դիտում/լսում")
 
     h31_cols = [
         "H31_1", "H31_2", "H31_3", "H31_4", "H31_5", "H31_6",
