@@ -483,48 +483,48 @@ def page_section4(df: pd.DataFrame):
         )
         st.altair_chart(chart_seg, use_container_width=True)
     
-    if not mentions_blog.empty:
-        st.markdown("**Նշված բլոգերների վարկանիշը**")
+    # if not mentions_blog.empty:
+    #     st.markdown("**Նշված բլոգերների վարկանիշը**")
         
-        # Top 20 Chart
-        top_20_blog = mentions_blog.head(20)
-        chart_blog = (
-            alt.Chart(top_20_blog)
-            .mark_bar()
-            .encode(
-                x=alt.X("Count:Q", title="Քանակ"),
-                y=alt.Y("Mentioned:N", sort="-x", title=None),
-                tooltip=["Mentioned", "Count"]
-            )
-        )
+    #     # Top 20 Chart
+    #     top_20_blog = mentions_blog.head(20)
+    #     chart_blog = (
+    #         alt.Chart(top_20_blog)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("Count:Q", title="Քանակ"),
+    #             y=alt.Y("Mentioned:N", sort="-x", title=None),
+    #             tooltip=["Mentioned", "Count"]
+    #         )
+    #     )
         
-        text = chart_blog.mark_text(
-            align='left',
-            baseline='middle',
-            dx=3
-        ).encode(
-            text=alt.Text('Count:Q')
-        )
+    #     text = chart_blog.mark_text(
+    #         align='left',
+    #         baseline='middle',
+    #         dx=3
+    #     ).encode(
+    #         text=alt.Text('Count:Q')
+    #     )
         
-        final_chart_blog = (
-            (chart_blog + text)
-            .properties(title="Top 20")
-            .configure_mark(color=YELLOW)
-        )
-        st.altair_chart(final_chart_blog, use_container_width=True)
+    #     final_chart_blog = (
+    #         (chart_blog + text)
+    #         .properties(title="Top 20")
+    #         .configure_mark(color=YELLOW)
+    #     )
+    #     st.altair_chart(final_chart_blog, use_container_width=True)
         
-        # Full Table
-        with st.expander("Տեսնել բոլոր նշված բլոգերներին (Ամբողջական ցանկ)"):
-            st.dataframe(mentions_blog, use_container_width=True)
-            csv_blog = mentions_blog.to_csv(index=False).encode("utf-8-sig")
-            st.download_button(
-                "Ներբեռնել ամբողջական ցանկը CSV",
-                data=csv_blog,
-                file_name="bloggers_all_mentions.csv",
-                mime="text/csv"
-            )
-    else:
-        st.info("Տվյալներ չկան")
+    #     # Full Table
+    #     with st.expander("Տեսնել բոլոր նշված բլոգերներին (Ամբողջական ցանկ)"):
+    #         st.dataframe(mentions_blog, use_container_width=True)
+    #         csv_blog = mentions_blog.to_csv(index=False).encode("utf-8-sig")
+    #         st.download_button(
+    #             "Ներբեռնել ամբողջական ցանկը CSV",
+    #             data=csv_blog,
+    #             file_name="bloggers_all_mentions.csv",
+    #             mime="text/csv"
+    #         )
+    # else:
+    #     st.info("Տվյալներ չկան")
         
     st.markdown("---")
 
@@ -559,46 +559,46 @@ def page_section4(df: pd.DataFrame):
         )
         st.altair_chart(chart_seg_tt, use_container_width=True)
 
-    if not mentions_tt.empty:
-        st.markdown("**Նշված տիկտոկերների վարկանիշը**")
+    # if not mentions_tt.empty:
+    #     st.markdown("**Նշված տիկտոկերների վարկանիշը**")
         
-        top_20_tt = mentions_tt.head(20)
-        chart_tt = (
-            alt.Chart(top_20_tt)
-            .mark_bar()
-            .encode(
-                x=alt.X("Count:Q", title="Քանակ"),
-                y=alt.Y("Mentioned:N", sort="-x", title=None),
-                tooltip=["Mentioned", "Count"]
-            )
-        )
+    #     top_20_tt = mentions_tt.head(20)
+    #     chart_tt = (
+    #         alt.Chart(top_20_tt)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("Count:Q", title="Քանակ"),
+    #             y=alt.Y("Mentioned:N", sort="-x", title=None),
+    #             tooltip=["Mentioned", "Count"]
+    #         )
+    #     )
         
-        text = chart_tt.mark_text(
-            align='left',
-            baseline='middle',
-            dx=3
-        ).encode(
-            text=alt.Text('Count:Q')
-        )
+    #     text = chart_tt.mark_text(
+    #         align='left',
+    #         baseline='middle',
+    #         dx=3
+    #     ).encode(
+    #         text=alt.Text('Count:Q')
+    #     )
         
-        final_chart_tt = (
-            (chart_tt + text)
-            .properties(title="Top 20")
-            .configure_mark(color=GRAY)
-        )
-        st.altair_chart(final_chart_tt, use_container_width=True)
+    #     final_chart_tt = (
+    #         (chart_tt + text)
+    #         .properties(title="Top 20")
+    #         .configure_mark(color=GRAY)
+    #     )
+    #     st.altair_chart(final_chart_tt, use_container_width=True)
         
-        with st.expander("Տեսնել բոլոր նշված տիկտոկերներին (Ամբողջական ցանկ)"):
-            st.dataframe(mentions_tt, use_container_width=True)
-            csv_tt = mentions_tt.to_csv(index=False).encode("utf-8-sig")
-            st.download_button(
-                "Ներբեռնել ամբողջական ցանկը CSV",
-                data=csv_tt,
-                file_name="tiktokers_all_mentions.csv",
-                mime="text/csv"
-            )
-    else:
-        st.info("Տվյալներ չկան")
+    #     with st.expander("Տեսնել բոլոր նշված տիկտոկերներին (Ամբողջական ցանկ)"):
+    #         st.dataframe(mentions_tt, use_container_width=True)
+    #         csv_tt = mentions_tt.to_csv(index=False).encode("utf-8-sig")
+    #         st.download_button(
+    #             "Ներբեռնել ամբողջական ցանկը CSV",
+    #             data=csv_tt,
+    #             file_name="tiktokers_all_mentions.csv",
+    #             mime="text/csv"
+    #         )
+    # else:
+    #     st.info("Տվյալներ չկան")
 
     st.markdown("---")
     
